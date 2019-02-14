@@ -12,7 +12,7 @@
 
 * To view sonarqube dashboard open in browser
 
-    [http://localhost:9000](http://localhost:9000)
+    [http://<host-ip>:9000](http://localhost:9000)
 
 * Access by following credentials:
  
@@ -23,5 +23,3 @@
 # Analyse Maven project:
 
     `./mvnw sonar:sonar -Dsonar.host.url=http://localhost:9000`
-
-psql -h 0.0.0.0 -U kdbuser --password -p 5432 sonar

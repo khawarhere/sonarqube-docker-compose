@@ -7,7 +7,6 @@ services:
       - 9000
     ports:
       - "9000:9000"
-    # environment:
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
       - sonarqube_data:/opt/sonarqube/data
