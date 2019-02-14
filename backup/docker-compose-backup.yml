@@ -1,0 +1,91 @@
+version: "2"
+
+services:
+  kpostgres:
+    image: postgres:latest
+    networks:
+      - knetwork
+    environment:
+      - POSTGRES_USER=kdbuser
+      - POSTGRES_PASSWORD=kdbpass
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  sonarqube:
+    image: sonarqube:6.7
+    expose:
+      - 9000
+    ports:
+      - "9000:9000"
+    networks:
+      - knetwork
+    depends_on:
+      - kpostgres
+    links:
+      - kpostgres:sonar          
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://sonarqube-docker-compose_kpostgres_1:5432/sonar
+      - sonar.jdbc.username=kdbuser
+      - sonar.jdbc.password=kdbpass
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+
+networks:
+  knetwork:
+    driver: bridge
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+
+# version: "2"
+
+# services:
+
+#   kpostgres:
+#     image: postgres:latest
+#     networks:
+#       - knetwork
+#     environment:
+#       - POSTGRES_USER=kdbuser
+#       - POSTGRES_PASSWORD=kdbpass
+#     volumes:
+#       - postgresql:/var/lib/postgresql
+#       - postgresql_data:/var/lib/postgresql/data
+
+
+#   sonarqube:
+#     image: sonarqube:6.7
+#     ports:
+#       - "9000:9000"
+#     networks:
+#       - knetwork
+#     depends_on:
+#       - kpostgres      
+#     environment:
+#       - sonar.jdbc.url=jdbc:postgresql://kpostgres:5432/sonar
+#       - sonar.jdbc.username=sonar
+#       - sonar.jdbc.password=jdbc:sonar
+#     volumes:
+#       - sonarqube_conf:/opt/sonarqube/conf
+#       - sonarqube_data:/opt/sonarqube/data
+#       - sonarqube_extensions:/opt/sonarqube/extensions
+
+# networks:
+#   knetwork:
+#     driver: bridge
+
+# volumes:
+#   sonarqube_conf:
+#   sonarqube_data:
+#   sonarqube_extensions:
+#   postgresql:
+#   postgresql_data:
