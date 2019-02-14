@@ -1,4 +1,4 @@
-# SonarQube with PostgreSQL using docker-compose
+# SonarQube with H2 using docker-compose
 
 * Clone repo
   
