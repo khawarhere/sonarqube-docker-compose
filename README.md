@@ -12,7 +12,7 @@
 
 * To view sonarqube dashboard open in browser
 
-    [http://<host-ip>:9000](http://localhost:9000)
+    [http://localhost:9000](http://localhost:9000)
 
 * Access by following credentials:
  
